@@ -30,3 +30,6 @@ func getEnvironmentValue(key string) string {
 	}
 	return val
 }
+func GetPaymentServiceURL() string {
+	return getEnvironmentValue("PAYMENT_SERVICE_URL")
+}
