@@ -24,6 +24,9 @@ replace github.com/pauloabaia/microservices-proto/golang/order => ../../microser
 
 // replace github.com/pauloabaia/microservices-proto/golang/order => ../../../microservices-proto/microservices-proto/golang/order
 
-require github.com/pauloabaia/microservices-proto/golang/payment v0.0.0-00010101000000-000000000000
+require (
+	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.3.3
+	github.com/pauloabaia/microservices-proto/golang/payment v0.0.0-00010101000000-000000000000
+)
 
 replace github.com/pauloabaia/microservices-proto/golang/payment => ../../microservices-proto/golang/payment
