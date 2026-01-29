@@ -24,6 +24,13 @@ type OrderItem struct {
 	OrderID     uint
 }
 
+type Product struct {
+	gorm.Model
+	ProductCode string `gorm:"type:varchar(255);uniqueIndex"` //ele nao tava conseguindo criar se nao delimitasse um tamanho
+	Name        string
+	Price       float32
+}
+
 type Adapter struct {
 	db *gorm.DB
 }
@@ -33,7 +40,7 @@ func NewAdapter(dataSourceUrl string) (*Adapter, error) {
 	if openErr != nil {
 		return nil, fmt.Errorf("db connection error: %v", openErr)
 	}
-	err := db.AutoMigrate(&Order{}, &OrderItem{})
+	err := db.AutoMigrate(&Order{}, &OrderItem{}, &Product{})
 	if err != nil {
 		return nil, fmt.Errorf("db migration error: %v", err)
 	}
@@ -87,4 +94,10 @@ func (a Adapter) Save(order *domain.Order) error {
 		order.ID = int64(orderModel.ID)
 	}
 	return res.Error
+}
+
+func (a Adapter) ProductExists(productCode string) bool {
+	var product Product
+	result := a.db.Where("product_code = ?", productCode).First(&product)
+	return result.Error == nil
 }

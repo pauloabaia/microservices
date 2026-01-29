@@ -4,12 +4,12 @@ import (
 	"context"
 	"fmt"
 	"net"
-	
+
 	"log"
 
 	"github.com/pauloabaia/microservices-proto/golang/order"
 	"github.com/pauloabaia/microservices/order/config"
-	
+
 	"github.com/pauloabaia/microservices/order/internal/application/core/domain"
 	"github.com/pauloabaia/microservices/order/internal/ports"
 
@@ -18,14 +18,14 @@ import (
 )
 
 type Adapter struct {
-	api ports.APIPort
+	api  ports.APIPort
 	port int
 	order.UnimplementedOrderServer
 }
 
 func NewAdapter(api ports.APIPort, port int) *Adapter {
 	return &Adapter{
-		api: api,
+		api:  api,
 		port: port,
 	}
 }
@@ -49,7 +49,8 @@ func (a Adapter) Create(ctx context.Context, request *order.CreateOrderRequest) 
 	}
 
 	return &order.CreateOrderResponse{
-		OrderId: int32(result.ID),
+		OrderId:      int32(result.ID),
+		DeliveryDays: result.DeliveryDays,
 	}, nil
 }
 

@@ -2,7 +2,6 @@ package api
 
 import (
 	"context"
-	"log"
 	"time"
 
 	"github.com/huseyinbabal/microservices/payment/internal/application/core/domain"
